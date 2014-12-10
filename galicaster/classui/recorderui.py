@@ -298,6 +298,7 @@ class RecorderClassUI(gtk.Box):
         self.repo.add_after_rec(self.mediapackage, self.recorder.get_bins_info(), 
                                 close_duration, self.mediapackage.manual)
         
+        self.dispatcher.emit("upv-mediapackage-finished", self.mediapackage)
         code = 'manual' if self.mediapackage.manual else 'scheduled'
         if self.conf.get_lower('ingest', code) == 'immediately':
             self.worker.ingest(self.mediapackage)

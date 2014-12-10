@@ -756,7 +756,7 @@ class Mediapackage(object):
             values = dict(read_ini(attach.getURI()))
             return values[name]
         except:
-            return None
+            return 'defaults'
 
 
     def getOCCaptureAgentProperties(self):
