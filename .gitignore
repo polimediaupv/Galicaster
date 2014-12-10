@@ -34,3 +34,6 @@ tests/resources/profile/folder/
 
 # log dir
 log/
+
+# UPV
+conf.ini
