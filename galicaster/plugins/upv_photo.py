@@ -26,7 +26,7 @@ rectemp = repository.get_rectemp_path()
 
 # config parameters
 videoencoder = conf.get('upv_photo', 'videoencoder') or "jpegenc"
-device = conf.get('upv_photo', 'device') or "/dev/blackboard"
+device = conf.get('upv_photo', 'device') or "/dev/photo"
 photo_interval = conf.get_int('upv_photo', 'photo_interval') or 30
 filenames = conf.get('upv_photo', 'filenames') or "blackboard_%06d.jpg"
 mimetype = conf.get('upv_photo', 'mimetype') or "image/jpeg"
@@ -43,6 +43,10 @@ pipestr = (' v4l2src name=gc-photo-src ! queue ! '
 
 
 def init():
+	if not os.path.exists(device):
+    		logger.info("Device {} not connected.".format(device))
+		return
+    	logger.info("Device {} connected.".format(device))
 	try:
 		vrate_caps = 'videorate ! video/x-raw-yuv,framerate=1/%s' % (str(photo_interval))	
 		full_filenames = os.path.join(rectemp, filenames)
